@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cookie Acceptance Example</title>
+  <script>
+    function acceptCookies() {
+      // Set a cookie with an expiration date 1 year from now
+      var expirationDate = new Date();
+      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+      
+      document.cookie = "cookiesAccepted=true; expires=" + expirationDate.toUTCString() + "; path=/";
+      
+      // Hide the cookie banner or perform any other action
+      document.getElementById("cookieBanner").style.display = "none";
+      
+      // Check if cookies have been accepted
+      if (areCookiesAccepted()) {
+        console.log("Cookies have been accepted!");
+      } else {
+        console.log("Cookies have not been accepted yet.");
+      }
+    }
+
+    function areCookiesAccepted() {
+      var cookies = document.cookie.split(';');
+      
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        
+        if (cookie.indexOf("cookiesAccepted=") === 0) {
+          return cookie.substring("cookiesAccepted=".length, cookie.length) === "true";
+        }
+      }
+      
+      return false;
+    }
+  </script>
+  <style>
+    #cookieBanner {
+      background-color: #f0f0f0;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    
+    #acceptButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="cookieBanner">
+    <p>This website uses cookies to enhance your experience. By accepting, you agree to our use of cookies.</p>
+    <button id="acceptButton" onclick="acceptCookies()">Accept</button>
+  </div>
+</body>
+</html>
